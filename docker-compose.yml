@@ -1,2 +1,3 @@
 include:
   - ./mongo/docker-compose.yml
+  - ./postgres/docker-compose.yml

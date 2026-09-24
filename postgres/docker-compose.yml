@@ -1,0 +1,40 @@
+services:
+  postgresdb:
+    image: postgres:16-alpine
+    container_name: postgres
+    restart: no
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER} # super user credentials
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=default # name of initial db, different from maintainance db(postgres)
+    volumes:
+      - ./.postgres_data:/var/lib/postgresql/data
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 512M
+        reservations:
+          memory: 128M
+    profiles:
+      - postgres
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin_web
+    user: root # Forzar ejecución como root
+    restart: no
+    ports:
+      - "5050:80"
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD}
+      - PGADMIN_DISABLE_POSTFIX=True
+    volumes:
+      - ./.pgadmin_data:/var/lib/pgadmin
+      - ./servers.json:/pgadmin4/servers.json
+    depends_on:
+      - postgresdb
+    profiles:
+      - postgres

@@ -9,7 +9,7 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=${MONGO_USER}
       - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASS}
     volumes:
-      - ./.mongo_data:/data/db
+      - ./.data:/data/db
     command: ["--wiredTigerCacheSizeGB", "0.25"] # Límite interno de Mongo para cache
     deploy:
       resources:
@@ -18,6 +18,9 @@ services:
           memory: 512M # Máximo 512MB de RAM
         reservations:
           memory: 128M # Garantiza al menos 128MB
+    profiles:
+      - mongo
+    
   compass:
     image: haohanyang/compass-web:latest
     container_name: compass_web
@@ -35,3 +38,6 @@ services:
         limits:
           cpus: "0.25"
           memory: 256M
+    profiles:
+      - mongo
+    

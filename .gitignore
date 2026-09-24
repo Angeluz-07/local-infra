@@ -1,3 +1,6 @@
-.mongo_data
+mongo/.data
+postgres/.pgadmin_data
+postgres/.postgres_data
+postgres/.pgpass
 
 .env
