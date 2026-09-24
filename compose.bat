@@ -1,2 +1,3 @@
-:: register services to be managed through docker desktop
-docker compose up --no-start
+:: select the profile to use
+:: docker compose --profile <profile> up --remove-orphans
+docker compose --profile mongo up --remove-orphans

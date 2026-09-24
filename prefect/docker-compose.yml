@@ -1,0 +1,26 @@
+services:
+  prefect-server:
+    image: prefecthq/prefect:3.7.5-python3.13
+    container_name: prefect_server
+    command: prefect server start --host 0.0.0.0
+    environment:
+      - PREFECT_SERVER_API_HOST=0.0.0.0
+      - PREFECT_ANALYTICS_ENABLED=false
+      - PREFECT_UI_API_URL=http://localhost:4200/api
+      - PREFECT_API_DATABASE_CONNECTION_URL=${PREFECT_DB_URI}
+    ports:
+      - "4200:4200"
+    extra_hosts:
+      - "localhost:host-gateway"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 512M
+        reservations:
+          memory: 128M
+    profiles:
+      - prefect
