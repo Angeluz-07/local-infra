@@ -1,0 +1,36 @@
+#services:
+  # redis:
+  #   image: redis:7.2-alpine
+  #   container_name: redis_cc
+  #   ports:
+  #     - "6379:6379"
+  #   healthcheck:
+  #     test: ["CMD", "redis-cli", "ping"]
+  #     interval: 5s
+  #     timeout: 3s
+  #     retries: 5
+  #   deploy:
+  #     resources:
+  #       limits:
+  #         cpus: "0.25"
+  #         memory: 256M
+  #   profiles:
+  #     - base
+  # redisinsight:
+  #   image: redis/redisinsight:latest
+  #   container_name: redisinsight_cc
+  #   ports:
+  #     - "5540:5540"
+  #   environment:
+  #     # Configura la conexión automática apuntando al contenedor de arriba
+  #     - REDIS_EXTERNAL_URL=redis://redis:6379
+  #   depends_on:
+  #     redis:
+  #       condition: service_healthy
+  #   deploy:
+  #     resources:
+  #       limits:
+  #         cpus: "0.25"
+  #         memory: 256M
+  #   profiles:
+  #     - base
