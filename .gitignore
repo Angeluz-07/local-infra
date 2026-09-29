@@ -3,4 +3,5 @@ postgres/.pgadmin_data
 postgres/.postgres_data
 postgres/.pgpass
 mongo/.mongo_data
+azurite/.azure_data
 .env

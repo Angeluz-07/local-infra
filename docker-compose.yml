@@ -2,3 +2,4 @@ include:
   - ./mongo/docker-compose.yml
   - ./postgres/docker-compose.yml
   - ./azurite/docker-compose.yml
+  - ./redis/docker-compose.yml
